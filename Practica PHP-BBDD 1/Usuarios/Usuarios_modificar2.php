@@ -78,7 +78,7 @@
 </head>
 <body>
     <div class="margen" style="opacity: 0.8; padding-top: 30px; padding-bottom: 30px; margin-top: 50px; background-color: black; text-align: center;">
-        <img src="../fotos/logo.webp" width="400px">
+    <a href="../Index.html"><img src="../fotos/logo.webp" width="400px"></a>
     </div>
     <div class="indice">
         <span class="subindice">
