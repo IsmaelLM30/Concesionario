@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,112 +73,65 @@
             color: white;
             display: block;
         }
-        table{
-            border: 1px solid white; padding: 1px; 
-            padding: 3px; color: white;
-            opacity: 0.8;
-            
-        }
-        th{
-            border: 1px solid white; padding: 10px;
-            opacity: 1;
-        }
-        td{
-            border: 1px solid white; padding: 10px;
-            opacity: 1;
-        }
-        .colocar{
-            text-align: center;
-            margin-left: 365px;
+        .letras {
+            color: white;
+            background-color: black;
         }
     </style>
 </head>
 <body>
     <div class="margen" style="opacity: 0.8; padding-top: 30px; padding-bottom: 30px; margin-top: 50px; background-color: black; text-align: center;">
-    <a href="../Index.html"><img src="../fotos/logo.webp" width="400px"></a>
+        <a href="../Index.php"><img src="../fotos/logo.webp" width="400px"></a>
     </div>
     <div class="indice">
         <span class="subindice">
             Coches
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
-                <li><a href="Coches_añadir.html">AÑADIR</a></li>
-                <li><a href="#">LISTAR</a></li>
-                <li><a href="Coches_buscar.html">BUSCAR</a></li>
-                <li><a href="Coches_modificar.html">MODIFICAR</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
+                <li><a href="../Coches/Coches_añadir.php">AÑADIR</a></li>
+                <li><a href="../Coches/Coches_listar.php">LISTAR</a></li>
+                <li><a href="../Coches/Coches_buscar.php">BUSCAR</a></li>
+                <li><a href="../Coches/Coches_modificar.php">MODIFICAR</a></li>
             </ul>
         </span>
         <span class="subindice">
             Usuarios
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
-                <li><a href="../Usuarios/Usuarios_añadir.html">AÑADIR</a></li>
-                <li><a href="../Usuarios/Usuarios_listar.php">LISTAR</a></li>
-                <li><a href="../Usuarios/Usuarios_buscar.html">BUSCAR</a></li>
-                <li><a href="../Usuarios/Usuarios_modificar.html">MODIFICAR</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
+                <li><a href="#">AÑADIR</a></li>
+                <li><a href="Usuarios_listar.php">LISTAR</a></li>
+                <li><a href="Usuarios_buscar.php">BUSCAR</a></li>
+                <li><a href="Usuarios_modificar.php">MODIFICAR</a></li>
             </ul>
         </span>
         <span class="subindice">
             Alquileres
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
                 <li><a href="../Alquileres/Alquiler_listar.php">LISTAR</a></li>
-                <li><a href="../Alquileres/Alquiler_borrar.html">BORRAR</a></li>
+                <li><a href="../Alquileres/Alquiler_borrar.php">BORRAR</a></li>
 
             </ul>
         </span>
     </div>
-    <br><br>
 
-    <div class="margen" style="margin-top: 30px; padding: 25px; background-color: black; opacity: 0.6;">
-    <?php
-        $server = "localhost";
-        $username = "root";
-        $password = "rootroot";
-        $database = "concesionario";
-        $host = mysqli_connect($server, $username, $password, $database);
-        if (!$host){
-            die("Conexion fallida: " . mysqli_connect_error());
-        }
-        $nombre = trim(strip_tags($_REQUEST['nombre']));
-        $apellido = trim(strip_tags($_REQUEST['apellido']));
-        $saldo = trim(strip_tags($_REQUEST['saldo']));
-        $dni = trim(strip_tags($_REQUEST['DNI']));
-        
-        $instruccion = "select * from usuarios where nombre ='$nombre' or apellidos = '$apellido' or saldo = '$saldo' or dni = '$dni'";
-        $consulta = mysqli_query ($host,$instruccion)
-         or die ("Fallo en la consulta");
-         $nfilas = mysqli_num_rows ($consulta);
-         if ($nfilas > 0)
-         {
-            print("<div class='colocar'>");
-            print ("<TABLE>\n");
-            print ("<TR>\n");
-            print ("<TH>Nombre</TH>\n");
-            print ("<TH>Apellido</TH>\n");
-            print ("<TH>Saldo</TH>\n");
-            print ("<TH>DNI</TH>\n");          
-            print ("</TR>\n");
-   
-            for ($i=0; $i<$nfilas; $i++)
-            {
-               $resultado = mysqli_fetch_array ($consulta);
-               print ("<TR>\n");
-               print ("<TD>" . $resultado['nombre'] . "</TD>\n");
-               print ("<TD>" . $resultado['apellidos'] . "</TD>\n");
-               print ("<TD>" . $resultado['saldo'] . "</TD>\n");
-               print ("<TD>" . $resultado['dni'] . "</TD>\n");
 
-               print ("</TR>\n");
-            }
-   
-            print ("</TABLE> </div>\n");
-         }
-         else
-            print ("<h2 style='color: white;'>No hay usuarios disponibles con esas especificaciones</h2>");
+        <form action="Usuarios_buscar.php" class="margen" style="margin-top: 70px; padding: 25px; background-color: black; opacity: 0.6;">
+            <label class="letras" for="nombre">Nombre: </label>
+            <input class="letras" type="text" name="nombre1" >
+            <label style="margin-left: 150px;" class="letras" for="apellido">Apellido: </label>
+            <input class="letras" type="text" name="apellido" >
+            <br><br><br>
+            <label class="letras" for="saldo" style="margin-left: 20px;">Saldo: </label>
+            <input class="letras" type="number" name="saldo"  >
+            <label style="margin-left: 175px;" class="letras" for="DNI">DNI: </label>
+            <input class="letras" type="text" name="DNI" >
+            <br><br><br>
+            <div style="text-align: center;">
+                <input type="submit" value="Buscar" style="color: white; background-color: black;">
+            </div>
+            
+        </form>
     
-   mysqli_close ($host);
-    ?>
-    </div>
 </body>
 </html>

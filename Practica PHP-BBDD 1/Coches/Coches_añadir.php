@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,98 +81,64 @@
 </head>
 <body>
     <div class="margen" style="opacity: 0.8; padding-top: 30px; padding-bottom: 30px; margin-top: 50px; background-color: black; text-align: center;">
-    <a href="../Index.html"><img src="../fotos/logo.webp" width="400px"></a>
+        <a href="../Index.php"><img src="../fotos/logo.webp" width="400px"></a>
     </div>
     <div class="indice">
         <span class="subindice">
             Coches
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
                 <li><a href="#">AÑADIR</a></li>
                 <li><a href="Coches_listar.php">LISTAR</a></li>
-                <li><a href="Coches_buscar.html">BUSCAR</a></li>
-                <li><a href="Coches_modificar.html">MODIFICAR</a></li>
+                <li><a href="Coches_buscar.php">BUSCAR</a></li>
+                <li><a href="Coches_modificar.php">MODIFICAR</a></li>
             </ul>
         </span>
         <span class="subindice">
             Usuarios
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
-                <li><a href="../Usuarios/Usuarios_añadir.html">AÑADIR</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
+                <li><a href="../Usuarios/Usuarios_añadir.php">AÑADIR</a></li>
                 <li><a href="../Usuarios/Usuarios_listar.php">LISTAR</a></li>
-                <li><a href="../Usuarios/Usuarios_buscar.html">BUSCAR</a></li>
-                <li><a href="../Usuarios/Usuarios_modificar.html">MODIFICAR</a></li>
+                <li><a href="../Usuarios/Usuarios_buscar.php">BUSCAR</a></li>
+                <li><a href="../Usuarios/Usuarios_modificar.php">MODIFICAR</a></li>
             </ul>
         </span>
         <span class="subindice">
             Alquileres
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
                 <li><a href="../Alquileres/Alquiler_listar.php">LISTAR</a></li>
-                <li><a href="../Alquileres/Alquiler_borrar.html">BORRAR</a></li>
+                <li><a href="../Alquileres/Alquiler_borrar.php">BORRAR</a></li>
 
             </ul>
         </span>
     </div>
 
-    <div class="margen" style="margin-top: 70px; padding: 25px; background-color: black; opacity: 0.6; color: white;">
-    <?php
-        $target_dir = "../fotos/";
 
-
-        // Verificar si se envió un archivo
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
-            $file = $_FILES['image'];
+        <form action="Coches_añadir.php" method="post" enctype="multipart/form-data" class="margen" style="margin-top: 70px; padding: 25px; background-color: black; opacity: 0.6;">
+            <label class="letras" for="modelo">Modelo: </label>
+            <input class="letras" type="text" name="modelo" required>
+            <label style="margin-left: 150px;" class="letras" for="marca">Marca: </label>
+            <input class="letras" type="text" name="marca" required>
+            <label style="margin-left: 150px;" class="letras" for="color">Color: </label>
+            <input class="letras" type="text" name="color" required>
+            <br><br><br>
+            <label class="letras" for="precio">Precio: </label>
+            <input class="letras" type="number" name="precio" required>
+            <label style="margin-left: 150px;" class="letras" for="alquilado">Alquilado: </label>
+            <select name="alquilado">
+                <option value="1">si</option>
+                <option value="0">no</option>
+            </select>
+            <label style="margin-left: 220px;" class="letras" for="foto">Foto: </label>
+            <input class="letras" type="file" name="image" accept="image/*" required>
+            <br><br><br>
+            <div style="text-align: center;">
+                <input type="submit" value="Añadir" style="color: white; background-color: black;" >
+            </div>
             
-            // Obtener el nombre y ruta del archivo destino
-            $target_file = $target_dir . basename($file["name"]);
-        
-            // Verificar si el archivo es realmente una imagen
-            $check = getimagesize($file["tmp_name"]);
-            if ($check === false) {
-                die("El archivo seleccionado no es una imagen.");
-            }
-        
-            // Verificar si el archivo ya existe
-            if (file_exists($target_file)) {
-                die("El archivo ya existe en el servidor.");
-            }
-        
-            // Intentar mover el archivo al directorio de destino
-            if (move_uploaded_file($file["tmp_name"], $target_file)) {
-                true;
-            } else {
-                 die("Hubo un error al subir el archivo.");
-            }
-        } else {
-            die("No se ha seleccionado ningún archivo.");
-        }
-        $server = "localhost";
-        $username = "root";
-        $password = "rootroot";
-        $database = "concesionario";
-        $host = mysqli_connect($server, $username, $password, $database);
-        if (!$host){
-            die("Conexion fallida: " . mysqli_connect_error());
-        }
-        $modelo = trim(strip_tags($_REQUEST['modelo']));
-        $marca = trim(strip_tags($_REQUEST['marca']));
-        $color = trim(strip_tags($_REQUEST['color']));
-        $precio = trim(strip_tags($_REQUEST['precio']));
-        $alquilado = trim(strip_tags($_REQUEST['alquilado']));
-
-        $sql = "insert into coches (modelo, marca, color, precio, alquilado, foto) values ('$modelo', '$marca', '$color', '$precio', '$alquilado', '$target_file')";
-
-        if (mysqli_query($host, $sql)){
-            echo "  Vehiculo insertado insertado con exito.";
-        }
-        else{
-            echo "Error al insertar al usuario: " . mysqli_error($host);
-        }
-        mysqli_close($host);
-    ?>
-    </div>
+        </form>
     
 </body>
 </html>
-

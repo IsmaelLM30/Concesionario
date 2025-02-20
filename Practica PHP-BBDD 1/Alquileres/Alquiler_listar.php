@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,13 +96,13 @@
 </head>
 <body>
     <div class="margen" style="opacity: 0.8; padding-top: 30px; padding-bottom: 30px; margin-top: 50px; background-color: black; text-align: center;">
-    <a href="../Index.html"><img src="../fotos/logo.webp" width="400px"></a>
+    <a href="../Index.php"><img src="../fotos/logo.webp" width="400px"></a>
     </div>
     <div class="indice">
         <span class="subindice">
             Coches
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
                 <li><a href="Coches_añadir.html">AÑADIR</a></li>
                 <li><a href="#">LISTAR</a></li>
                 <li><a href="Coches_buscar.html">BUSCAR</a></li>
@@ -109,7 +112,7 @@
         <span class="subindice">
             Usuarios
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
                 <li><a href="../Usuarios/Usuarios_añadir.html">AÑADIR</a></li>
                 <li><a href="../Usuarios/Usuarios_listar.php">LISTAR</a></li>
                 <li><a href="../Usuarios/Usuarios_buscar.html">BUSCAR</a></li>
@@ -119,7 +122,7 @@
         <span class="subindice">
             Alquileres
             <ul class="submenu">
-                <li><a href="../Index.html">INICIO</a></li>
+                <li><a href="../Index.php">INICIO</a></li>
                 <li><a href="../Alquileres/Alquiler_listar.php">LISTAR</a></li>
                 <li><a href="../Alquileres/Alquiler_borrar.html">BORRAR</a></li>
 

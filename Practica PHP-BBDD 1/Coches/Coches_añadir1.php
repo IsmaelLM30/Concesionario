@@ -3,7 +3,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Desplegable</title>
@@ -73,37 +73,25 @@ session_start();
             color: white;
             display: block;
         }
-        .inicio_ses{
-            opacity: 0.8;
-            color: white; background-color: black; display: flex; margin-left: 1050px; margin-top: -250px; margin-bottom: 250px; position: absolute;
-        }
-        .Registro_ses{
-            opacity: 0.8;
-            color: white; background-color: black; display: flex; margin-left: 1190px; margin-top: -250px; margin-bottom: 250px; position: absolute;
-        }
         .letras {
             color: white;
             background-color: black;
-        }
-        .centrar{
-            display: flex;
-            justify-content: center;
         }
     </style>
 </head>
 <body>
     <div class="margen" style="opacity: 0.8; padding-top: 30px; padding-bottom: 30px; margin-top: 50px; background-color: black; text-align: center;">
-        <a href="../Index.php"><img src="../fotos/logo.webp" width="400px"></a>
+    <a href="../Index.php"><img src="../fotos/logo.webp" width="400px"></a>
     </div>
-     <div class="indice">
+    <div class="indice">
         <span class="subindice">
             Coches
             <ul class="submenu">
                 <li><a href="../Index.php">INICIO</a></li>
-                <li><a href="../Coches/Coches_añadir.php">AÑADIR</a></li>
-                <li><a href="../Coches/Coches_listar.php">LISTAR</a></li>
-                <li><a href="../Coches/Coches_buscar.php">BUSCAR</a></li>
-                <li><a href="../Coches/Coches_modificar.php">MODIFICAR</a></li>
+                <li><a href="#">AÑADIR</a></li>
+                <li><a href="Coches_listar.php">LISTAR</a></li>
+                <li><a href="Coches_buscar.php">BUSCAR</a></li>
+                <li><a href="Coches_modificar.php">MODIFICAR</a></li>
             </ul>
         </span>
         <span class="subindice">
@@ -126,33 +114,39 @@ session_start();
             </ul>
         </span>
     </div>
-    <br><br>
-    <div class="margen" style="margin-top: 40px; padding: 25px; background-color: black; opacity: 0.8; color: white; text-align: center; display: flex; justify-content: center;">
-    <form action="login1.php" class="margen" style="text-align: center; border: 2px grey solid; background: white; border-radius: 12px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); width: 350px; margin-top: 10px; padding: 40px; background-color: black; opacity: 0.6; height: 300px;">
-           <div class="centrar"> 
-                <label class="letras" for="nombre">Nombre: </label>
-                <input class="letras" type="text" name="nombre" required> 
-            </div>
-                <br><br><br><br>
-            <div class="centrar">    
-                <label style="margin-left: 15px; padding-right: 15px;" class="letras" for="DNI">DNI: </label>
-                <input class="letras" type="text" name="DNI" required>
-            </div>
-                <br><br><br><br>
-            <div class="centrar">
-                <label style="margin-left: -25px" class="letras" for="contraseña">Contraseña: </label>
-                <input  class="letras" type="password" name="contraseña" required>
-            </div>    
-                <br><br><br><br>
-            
-                <button type="submit" value="Iniciar Sesion" style="color: white; background-color: black; margin-right: 10px;">Iniciar Sesion</button>
-                <button onclick="window.location.href='Registrarse.php'" value="Registrarse" style="color: white; background-color: black; margin-left: 10px;">Registrarse</button>
-            
-        </form>
+
+    <div class="margen" style="margin-top: 70px; padding: 25px; background-color: black; opacity: 0.6; color: white;">
     <?php
-    if (isset($_SESSION["nombre"])) {
-        print "<p class=`letras`>Usted ya se ha registrado en la pagina con el nombre de: <strong>$_SESSION[nombre]</strong></p>\n";
-    }
+        $target_dir = "../fotos/";
+
+
+        // Verificar si se envió un archivo
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
+            $file = $_FILES['image'];
+            
+            // Obtener el nombre y ruta del archivo destino
+            $target_file = $target_dir . basename($file["name"]);
+        
+            // Verificar si el archivo es realmente una imagen
+            $check = getimagesize($file["tmp_name"]);
+            if ($check === false) {
+                die("El archivo seleccionado no es una imagen.");
+            }
+        
+            // Verificar si el archivo ya existe
+            if (file_exists($target_file)) {
+                die("El archivo ya existe en el servidor.");
+            }
+        
+            // Intentar mover el archivo al directorio de destino
+            if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                true;
+            } else {
+                 die("Hubo un error al subir el archivo.");
+            }
+        } else {
+            die("No se ha seleccionado ningún archivo.");
+        }
         $server = "localhost";
         $username = "root";
         $password = "rootroot";
@@ -161,9 +155,24 @@ session_start();
         if (!$host){
             die("Conexion fallida: " . mysqli_connect_error());
         }
+        $modelo = trim(strip_tags($_REQUEST['modelo']));
+        $marca = trim(strip_tags($_REQUEST['marca']));
+        $color = trim(strip_tags($_REQUEST['color']));
+        $precio = trim(strip_tags($_REQUEST['precio']));
+        $alquilado = trim(strip_tags($_REQUEST['alquilado']));
+
+        $sql = "insert into coches (modelo, marca, color, precio, alquilado, foto) values ('$modelo', '$marca', '$color', '$precio', '$alquilado', '$target_file')";
+
+        if (mysqli_query($host, $sql)){
+            echo "  Vehiculo insertado insertado con exito.";
+        }
+        else{
+            echo "Error al insertar al usuario: " . mysqli_error($host);
+        }
         mysqli_close($host);
     ?>
     </div>
-
+    
 </body>
 </html>
+

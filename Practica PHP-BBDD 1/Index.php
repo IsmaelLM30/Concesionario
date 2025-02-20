@@ -1,0 +1,135 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Desplegable</title>
+    <style>
+        body {
+            background-image: url(./fotos/fondo.jpeg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .margen {
+            margin-left: 350px; 
+            margin-right: 350px;
+        }
+
+        .indice {
+            display: flex; 
+            justify-content: center; 
+            background-color: black; 
+            color: white; 
+            margin-top: 10px;
+            margin-left: 350px; 
+            margin-right: 350px;
+            opacity: 0.8;
+        }
+
+        .subindice {
+            font-size: 40px;
+            margin: 0 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .submenu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: black;
+            color: white;
+            display: none;
+            border: 1px solid #ccc;
+            min-width: 150px;
+            text-decoration: underline;
+        }
+
+        .submenu li {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .submenu li:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .subindice:hover .submenu {
+            display: block;
+        }
+
+        .submenu a {
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .inicio_ses{
+            opacity: 0.8;
+            color: white; background-color: black; display: flex; margin-left: 1050px; margin-top: -250px; margin-bottom: 250px; position: absolute;
+        }
+        .Registro_ses{
+            opacity: 0.8;
+            color: white; background-color: black; display: flex; margin-left: 1190px; margin-top: -250px; margin-bottom: 250px; position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="margen" style="opacity: 0.8; padding-top: 30px; padding-bottom: 30px; margin-top: 50px; background-color: black; text-align: center;">
+        <a href="Index.php"><img src="fotos/logo.webp" width="400px"></a>
+    </div>
+    <?php
+    if (isset($_SESSION["nombre"])) {
+        //Meter aqui una imagen + Borrar Sesion
+        print "<form style='margin-left: 200px;' action='./login/Borrar_sesion.php'><button type='submit' class='Registro_ses'> Cerrar Sesion </button></form>"; 
+        
+    }
+    else{
+        print "<form style='margin-left: 200px;' action='./login/login.php'><button type='submit' class='inicio_ses'> Iniciar sesion </button></form>";
+        print "<form style='margin-left: 200px;' action='./login/Registrarse.php'><button type='submit' class='Registro_ses'> Registrarse </button></form>";
+    }
+    ?>
+    <div class="indice">
+        <span class="subindice">
+            Coches
+            <ul class="submenu">
+                <li><a href="#">INICIO</a></li>
+                <li><a href="./Coches/Coches_añadir.php">AÑADIR</a></li>
+                <li><a href="./Coches/Coches_listar.php">LISTAR</a></li>
+                <li><a href="./Coches/Coches_buscar.php">BUSCAR</a></li>
+                <li><a href="./Coches/Coches_modificar.php">MODIFICAR</a></li>
+            </ul>
+        </span>
+        <span class="subindice">
+            Usuarios
+            <ul class="submenu">
+                <li><a href="#">INICIO</a></li>
+                <li><a href="./Usuarios/Usuarios_añadir.php">AÑADIR</a></li>
+                <li><a href="./Usuarios/Usuarios_listar.php">LISTAR</a></li>
+                <li><a href="./Usuarios/Usuarios_buscar.php">BUSCAR</a></li>
+                <li><a href="./Usuarios/Usuarios_modificar.php">MODIFICAR</a></li>
+            </ul>
+        </span>
+        <span class="subindice">
+            Alquileres
+            <ul class="submenu">
+                <li><a href="#">INICIO</a></li>
+                <li><a href="./Alquileres/Alquiler_listar.php">LISTAR</a></li>
+                <li><a href="./Alquileres/Alquiler_borrar.php">BORRAR</a></li>
+
+            </ul>
+        </span>
+    </div>
+    <br><br>
+
+</body>
+</html>
