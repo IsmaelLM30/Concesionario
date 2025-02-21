@@ -67,7 +67,7 @@ CREATE TABLE `coches` (
 
 LOCK TABLES `coches` WRITE;
 /*!40000 ALTER TABLE `coches` DISABLE KEYS */;
-INSERT INTO `coches` VALUES (18,'clio','renault','blanco',8400,0,'../fotos/Captura de pantalla 2024-12-03 132805.png'),(19,'megane','renault','naranja',4000,0,'../fotos/Captura de pantalla 2024-12-03 133353.png'),(20,'308','peugeot','gris',6050,1,'../fotos/Captura de pantalla 2024-12-03 133614.png'),(21,'ibiza','seat','blanco',12400,0,'../fotos/Captura de pantalla 2024-12-03 134038.png'),(22,'c3','citroen','blanco',6000,0,'../fotos/Captura de pantalla 2024-12-03 134642.png'),(23,'rio','kia','rojo',9700,1,'../fotos/Captura de pantalla 2024-12-03 135034.png'),(24,'corolla','toyota','naranja',14700,1,'../fotos/Captura de pantalla 2024-12-03 135340.png'),(25,'a3','audi','verde',18900,1,'../fotos/Captura de pantalla 2024-12-03 135442.png');
+INSERT INTO `coches` VALUES (18,'clio','renault','blanco',8400,0,'../fotos/Captura de pantalla 2024-12-03 132805.png'),(19,'megane','renault','naranja',4000,0,'../fotos/Captura de pantalla 2024-12-03 133353.png'),(20,'308','peugeot','gris',6050,0,'../fotos/Captura de pantalla 2024-12-03 133614.png'),(21,'ibiza','seat','blanco',12400,0,'../fotos/Captura de pantalla 2024-12-03 134038.png'),(22,'c3','citroen','blanco',6000,0,'../fotos/Captura de pantalla 2024-12-03 134642.png'),(23,'rio','kia','rojo',9700,1,'../fotos/Captura de pantalla 2024-12-03 135034.png'),(24,'corolla','toyota','naranja',14700,1,'../fotos/Captura de pantalla 2024-12-03 135340.png'),(25,'a3','audi','verde',18900,1,'../fotos/Captura de pantalla 2024-12-03 135442.png');
 /*!40000 ALTER TABLE `coches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,8 +85,9 @@ CREATE TABLE `usuarios` (
   `apellidos` varchar(50) DEFAULT NULL,
   `dni` varchar(9) DEFAULT NULL,
   `saldo` float DEFAULT NULL,
+  `tipo` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +96,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'827ccb0eea8a706c4c34a16891f84e7b','ismael','lamarti','11111111A',3000),(2,'00c66aaf5f2c3f49946f15c1ad2ea0d3','cristian','rojas','22222222B',7000),(3,'827ccb0eea8a706c4c34a16891f84e7b','pablo','merino','33333333C',16000),(4,'827ccb0eea8a706c4c34a16891f84e7b','mario','cordente','44444444D',9000),(5,'827ccb0eea8a706c4c34a16891f84e7b','alejandro','cano','55555555E',13700);
+INSERT INTO `usuarios` VALUES (15,'$2y$10$cz3cElB.IPaCHM9Obi8iv.B6jXnbxkCJ7fanKR8VS0L3Fvei7p8zm','ismael','lamarti','11864529W',9283,0),(16,'$2y$10$2m/LL4FfUcxarR8ueWodrOGknBbbSOgzDOI5TMV3Ns7L5LfF3RNRW','pepe','rojas','50319669Q',20000,1);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -108,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-09 12:40:03
+-- Dump completed on 2025-02-21 13:57:12
