@@ -8,7 +8,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Desplegable</title>
 <?php include "../Index/Index.php"?>
-    <form action="Coches_buscar.php" class="margen" style="margin-top: 70px; padding: 25px; background-color: black; opacity: 0.6;">
+    <form action="Coches_buscar1.php" class="margen" style="margin-top: 70px; padding: 25px; background-color: black; opacity: 0.6;">
         <label class="letras" for="modelo">Modelo: </label>
         <input class="letras" type="text" name="modelo" >
         <label style="margin-left: 150px;" class="letras" for="marca">Marca: </label>

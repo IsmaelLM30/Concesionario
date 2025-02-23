@@ -71,7 +71,7 @@ session_start();
         .submenu a {
             text-decoration: none;
             color: white;
-            display: block;
+            display: block !important;
         }
         .inicio_ses{
             opacity: 0.8;
@@ -164,40 +164,46 @@ session_start();
                 
             </ul>
         </span>
-    <?php
-        if (isset($_SESSION["nombre"])) {
-            if ($_SESSION["tipo"] == "0" || $_SESSION["tipo"] == "1"){      
-            print "<span class='subindice'>
+        <?php
+if (isset($_SESSION["nombre"])) {
+    if ($_SESSION["tipo"] == "0" || $_SESSION["tipo"] == "1") {      
+        print "<span class='subindice'>
                 Usuarios
                 <ul class='submenu'>
                     <li><a href='../Index/Index.php'>INICIO</a></li>";
-            if ($_SESSION["tipo"] == "0" ){
-                    print"<li><a href='../Usuarios/Usuarios_añadir.php'>AÑADIR</a></li>";
+        if ($_SESSION["tipo"] == "0" ){
+            print "<li><a href='../Usuarios/Usuarios_añadir.php'>AÑADIR</a></li>";
+        }
+        print "<li><a href='../Usuarios/Usuarios_listar.php'>LISTAR</a></li>
+               <li><a href='../Usuarios/Usuarios_buscar.php'>BUSCAR</a></li>";
+        if ($_SESSION["tipo"] == "0" ){
+            print "<li><a href='../Usuarios/Usuarios_modificar.php'>MODIFICAR</a></li>";
+        }
+        print "</ul></span>";
+    }
+}
+?>
+
+<span class='subindice'>
+    Alquileres
+    <ul class='submenu'>
+        <li><a href='../Index/Index.php'>INICIO</a></li>
+                <li><a href='../Alquileres/Alquiler_alquilar.php'>ALQUILAR</a></li>
+        
+        <?php
+        if (isset($_SESSION["nombre"])) { 
+            if ($_SESSION["tipo"] == "0" || $_SESSION["tipo"] == "1" || $_SESSION["tipo"] == "2") {        
+                print "<li><a href='../Alquileres/Alquiler_listar.php'>LISTAR</a></li>";
             }
-                   print "<li><a href='../Usuarios/Usuarios_listar.php'>LISTAR</a></li>
-                    <li><a href='../Usuarios/Usuarios_buscar.php'>BUSCAR</a></li>";
-                if ($_SESSION["tipo"] == "0" ){
-                    print"<li><a href='../Usuarios/Usuarios_modificar.php'>MODIFICAR</a></li>
-                </ul>
-            </span>";
+            if ($_SESSION["tipo"] == "0") {        
+                print "<li><a href='../Alquileres/Alquiler_borrar.php'>BORRAR</a></li>";
             }
         }
-    }
-    ?>
-            <span class='subindice'>
-                Alquileres
-                <ul class='submenu'>
-                    <li><a href='../Index/Index.php'>INICIO</a></li>
-                    <li><a href='../Index/Index.php'>ALQUILAR</a></li>
-    <?php
-            if ($_SESSION["tipo"] == "0"){        
-                   print "<li><a href='../Alquileres/Alquiler_listar.php'>LISTAR</a></li>
-                    <li><a href='../Alquileres/Alquiler_borrar.php'>BORRAR</a></li>
+        ?>
+    </ul>
+</span>
 
-                </ul>
-            </span>";
-    }
-    ?>
+
     </div>
     <br><br>
 

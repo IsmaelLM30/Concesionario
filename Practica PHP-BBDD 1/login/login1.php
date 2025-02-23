@@ -20,6 +20,7 @@ session_start();
             $_SESSION["nombre"] = $resultado["nombre"];
             $_SESSION["saldo"] = $resultado["saldo"];
             $_SESSION["tipo"] = $resultado["tipo"];
+            $_SESSION["id"] = $resultado["id"];
             header("Location: ../Index/Index.php");
             exit();
             

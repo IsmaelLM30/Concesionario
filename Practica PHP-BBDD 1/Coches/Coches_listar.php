@@ -6,6 +6,7 @@ session_start();
 <head>
     <?php include "../Index/Index.php"?>
 </head>
+<body>
     <div class="margen" style="margin-top: 30px; padding: 25px; background-color: black; opacity: 0.6;">
     <?php
         $server = "localhost";

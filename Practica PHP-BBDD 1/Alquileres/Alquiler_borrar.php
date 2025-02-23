@@ -23,7 +23,8 @@ session_start();
         $alquilado = trim(strip_tags($_REQUEST['alquilado']));
         $foto = trim(strip_tags($_REQUEST['foto']));
         $instruccion = "select alquileres.id_alquiler, usuarios.nombre,usuarios.apellidos, coches.marca,coches.modelo, prestado,devuelto from alquileres, coches,
- usuarios where alquileres.id_usuario=usuarios.id_usuario and alquileres.id_coche = coches.id_coche";        $consulta = mysqli_query ($host,$instruccion)
+ usuarios where alquileres.id_usuario=usuarios.id_usuario and alquileres.id_coche = coches.id_coche";        
+ $consulta = mysqli_query ($host,$instruccion)
          or die ("Fallo en la consulta");
          $nfilas = mysqli_num_rows ($consulta);
          if ($nfilas > 0)
