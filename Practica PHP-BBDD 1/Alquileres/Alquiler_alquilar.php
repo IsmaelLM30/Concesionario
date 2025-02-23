@@ -33,7 +33,6 @@ session_start();
             print ("<TH>Precio</TH>\n");
             print ("<TH>Alquilado</TH>\n");
             print ("<TH>Foto</TH>\n");
-            print ("<TH>Vendedor</TH>\n");
             print ("<TH>Cual quieres editar</TH>\n");
             print ("</TR>\n");
    
@@ -46,23 +45,22 @@ session_start();
                print ("<TD><input type='hidden' name='color[" . $resultado['id_coche'] . "]' value='" . $resultado['color'] . "'>" . $resultado['color'] . "</TD>\n");
                print ("<TD><input type='hidden' name='precio[" . $resultado['id_coche'] . "]' value='" . $resultado['precio'] . "'>" . $resultado['precio'] . "</TD>\n");
                if ($resultado["alquilado"] == "1"){
-                print ("<TD><input type='hidden' name='alquilado[" . $resultado['id_coche'] . "]' value='Si'>Si</TD>\n");
+                print ("<TD><input type='hidden' name='alquilado[" . $resultado['id_coche'] . "]' value='1'>Si</TD>\n");
                 print ("<TD><img src=' " . $resultado['foto'] . "' width='90px'></TD>\n");
-                print ("<TD><input type='hidden' name='vendedor[" . $resultado['id_coche'] . "]' value='" . $resultado['vendedor'] . "'>" . $resultado['vendedor'] . "</TD>\n");
-                print ("<TD> <input type= 'radio' name='id' value= '". $resultado['id_coche'] ."'> </TD> \n");
                 
                }
                if ($resultado["alquilado"] == "0"){
-                print ("<TD><input type='hidden' name='alquilado[" . $resultado['id_coche'] . "]' value='No'>No</TD>\n");
-                print ("<TD><img src=' " . $resultado['foto'] . "' width='90px'></TD>\n");
-                print ("<TD><input type='hidden' name='vendedor[" . $resultado['id_coche'] . "]' value='" . $resultado['vendedor'] . "'>" . $resultado['vendedor'] . "</TD>\n");
+                print ("<TD><input type='hidden' name='alquilado[" . $resultado['id_coche'] . "]' value='0'>No</TD>\n");
+                print ("<TD><input type='hidden' name='foto[" . $resultado['id_coche'] . "]' value='No'><img src=' " . $resultado['foto'] . "' width='90px'></TD>\n");
                 print ("<TD> <input type= 'radio' name='id' value= '". $resultado['id_coche'] ."'> </TD> \n");
+                
                }
                
 
    
                
                print ("</TR>\n");
+               print ("<input type='hidden' name='vendedor[" . $resultado['id_coche'] . "]' value='" . $resultado['vendedor'] . "'>\n");
                
             }
    

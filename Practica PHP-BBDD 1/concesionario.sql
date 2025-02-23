@@ -25,11 +25,13 @@ DROP TABLE IF EXISTS `alquileres`;
 CREATE TABLE `alquileres` (
   `id_alquiler` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_usuario` int(10) unsigned DEFAULT NULL,
+  `id_vendedor` int(11) DEFAULT '14',
   `id_coche` int(10) unsigned DEFAULT NULL,
+  `precio` int(11) NOT NULL,
   `prestado` datetime DEFAULT NULL,
   `devuelto` datetime DEFAULT NULL,
   PRIMARY KEY (`id_alquiler`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,9 +40,69 @@ CREATE TABLE `alquileres` (
 
 LOCK TABLES `alquileres` WRITE;
 /*!40000 ALTER TABLE `alquileres` DISABLE KEYS */;
-INSERT INTO `alquileres` VALUES (2,5,23,'2024-12-09 00:00:00',NULL),(3,3,24,'2024-12-09 00:00:00','2025-02-27 00:00:00'),(4,3,20,'2023-10-29 00:00:00','2024-07-10 00:00:00'),(5,4,20,'2024-12-09 00:00:00','2025-01-10 00:00:00'),(6,3,23,'2022-08-28 00:00:00','2022-11-30 00:00:00'),(7,3,23,'2022-08-28 00:00:00','2022-11-30 00:00:00');
+INSERT INTO `alquileres` VALUES (17,30,15,18,8400,'2025-02-24 00:28:21',NULL),(18,30,15,22,6000,'2025-02-24 00:31:09',NULL);
 /*!40000 ALTER TABLE `alquileres` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `after_insert_tabla_1` AFTER INSERT ON `alquileres` FOR EACH ROW BEGIN
+    UPDATE coches
+    SET alquilado = 1
+    WHERE id_coche = NEW.id_coche;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `after_insert_tabla_2` AFTER INSERT ON `alquileres` FOR EACH ROW BEGIN
+    UPDATE usuarios
+    SET saldo = saldo + new.precio
+    WHERE id_usuario = new.id_vendedor;
+    UPDATE usuarios
+    SET saldo = saldo - new.precio
+    WHERE id_usuario = new.id_usuario;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `after_delete_tabla_1` AFTER DELETE ON `alquileres` FOR EACH ROW BEGIN
+    UPDATE coches
+    SET alquilado = 0
+    WHERE id_coche = old.id_coche;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `coches`
@@ -57,6 +119,7 @@ CREATE TABLE `coches` (
   `precio` float DEFAULT NULL,
   `alquilado` tinyint(1) DEFAULT NULL,
   `foto` varchar(300) DEFAULT NULL,
+  `vendedor` int(11) NOT NULL,
   PRIMARY KEY (`id_coche`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -67,7 +130,7 @@ CREATE TABLE `coches` (
 
 LOCK TABLES `coches` WRITE;
 /*!40000 ALTER TABLE `coches` DISABLE KEYS */;
-INSERT INTO `coches` VALUES (18,'clio','renault','blanco',8400,0,'../fotos/Captura de pantalla 2024-12-03 132805.png'),(19,'megane','renault','naranja',4000,0,'../fotos/Captura de pantalla 2024-12-03 133353.png'),(20,'308','peugeot','gris',6050,0,'../fotos/Captura de pantalla 2024-12-03 133614.png'),(21,'ibiza','seat','blanco',12400,0,'../fotos/Captura de pantalla 2024-12-03 134038.png'),(22,'c3','citroen','blanco',6000,0,'../fotos/Captura de pantalla 2024-12-03 134642.png'),(23,'rio','kia','rojo',9700,1,'../fotos/Captura de pantalla 2024-12-03 135034.png'),(24,'corolla','toyota','naranja',14700,1,'../fotos/Captura de pantalla 2024-12-03 135340.png'),(25,'a3','audi','verde',18900,1,'../fotos/Captura de pantalla 2024-12-03 135442.png');
+INSERT INTO `coches` VALUES (18,'clio','renault','blanco',8400,1,'../fotos/Captura de pantalla 2024-12-03 132805.png',15),(19,'megane','renault','naranja',4000,0,'../fotos/Captura de pantalla 2024-12-03 133353.png',15),(20,'308','peugeot','gris',6050,0,'../fotos/Captura de pantalla 2024-12-03 133614.png',15),(21,'ibiza','seat','blanco',12400,0,'../fotos/Captura de pantalla 2024-12-03 134038.png',15),(22,'c3','citroen','blanco',6000,1,'../fotos/Captura de pantalla 2024-12-03 134642.png',15),(23,'rio','kia','rojo',9700,0,'../fotos/Captura de pantalla 2024-12-03 135034.png',15),(24,'corolla','toyota','naranja',14700,0,'../fotos/Captura de pantalla 2024-12-03 135340.png',15),(25,'a3','audi','verde',18900,0,'../fotos/Captura de pantalla 2024-12-03 135442.png',15);
 /*!40000 ALTER TABLE `coches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,11 +146,11 @@ CREATE TABLE `usuarios` (
   `password` varchar(100) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `apellidos` varchar(50) DEFAULT NULL,
-  `dni` varchar(9) DEFAULT NULL,
+  `dni` varchar(10) NOT NULL,
   `saldo` float DEFAULT NULL,
   `tipo` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +159,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (15,'$2y$10$cz3cElB.IPaCHM9Obi8iv.B6jXnbxkCJ7fanKR8VS0L3Fvei7p8zm','ismael','lamarti','11864529W',9283,0),(16,'$2y$10$2m/LL4FfUcxarR8ueWodrOGknBbbSOgzDOI5TMV3Ns7L5LfF3RNRW','pepe','rojas','50319669Q',20000,1);
+INSERT INTO `usuarios` VALUES (15,'$2y$10$cz3cElB.IPaCHM9Obi8iv.B6jXnbxkCJ7fanKR8VS0L3Fvei7p8zm','ismael','lamarti','11864529W',24400,0),(28,'$2y$10$qUg4jP4sw7BJ8Etaw8R50OK//IY9Nhx9BtSk.dN1VagG6w5gVbF0i','rodrigo','matamoros','654',60000,0),(29,'$2y$10$OvJTrfv0bmArnE2UJeQgie1D88ngOcdu1Myye9U8PsnuAZcCVIr.u','franco','cano','654',65000,1),(30,'$2y$10$8AO0k385Wp9WZIQOsBJtF.YuhWErsbBYL5QAzXnvG.2.Ld6wVXOtO','alejandro','corralillos','654',44000,2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -109,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-21 13:57:12
+-- Dump completed on 2025-02-24  0:50:27
