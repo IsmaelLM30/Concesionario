@@ -63,4 +63,3 @@ session_start();
     </div>
 </body>
 </html>
-mysqldump -u root -p --routines --triggers concesionario > 'C:\AppServ\www\Concesionario\Practica PHP-BBDD 1\concesionario.sql'
